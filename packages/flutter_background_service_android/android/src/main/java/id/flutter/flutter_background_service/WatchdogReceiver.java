@@ -15,16 +15,24 @@ import android.os.Build;
 
 import androidx.core.app.AlarmManagerCompat;
 import androidx.core.content.ContextCompat;
-
+import android.content.SharedPreferences;
 public class WatchdogReceiver extends BroadcastReceiver {
     private static final int QUEUE_REQUEST_ID = 111;
     private static final String ACTION_RESPAWN = "id.flutter.background_service.RESPAWN";
 
     public static void enqueue(Context context) {
-        enqueue(context, 5000);
+        enqueue(context, 1000);
     }
 
     public static void enqueue(Context context, int millis) {
+
+
+         SharedPreferences prefs = context.getSharedPreferences("_backgroundService", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("isRunning", "no");
+        editor.apply(); // أو commit() للتخزين الفوري
+
+        
         /*
         Intent intent = new Intent(context, WatchdogReceiver.class);
         intent.setAction(ACTION_RESPAWN);
