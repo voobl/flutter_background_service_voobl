@@ -21,13 +21,13 @@ public class WatchdogReceiver extends BroadcastReceiver {
     private static final String ACTION_RESPAWN = "id.flutter.background_service.RESPAWN";
 
     public static void enqueue(Context context) {
-        enqueue(context, 1000);
+        enqueue(context, 2000);
     }
 
     public static void enqueue(Context context, int millis) {
 
-
-         SharedPreferences prefs = context.getSharedPreferences("_backgroundService", Context.MODE_PRIVATE);
+        Log.e("myTag", "This is my message");
+         SharedPreferences prefs = context.getSharedPreferences("FlutterSharedPreferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString("isRunning", "no");
         editor.apply(); // أو commit() للتخزين الفوري
