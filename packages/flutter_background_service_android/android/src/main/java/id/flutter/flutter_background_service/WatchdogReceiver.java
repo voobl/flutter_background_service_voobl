@@ -25,6 +25,7 @@ public class WatchdogReceiver extends BroadcastReceiver {
     }
 
     public static void enqueue(Context context, int millis) {
+        /*
         Intent intent = new Intent(context, WatchdogReceiver.class);
         intent.setAction(ACTION_RESPAWN);
         AlarmManager manager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
@@ -56,6 +57,7 @@ public class WatchdogReceiver extends BroadcastReceiver {
         } else {
           AlarmManagerCompat.setExact(manager, AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + millis, pIntent);
         }
+        */
     }
 
     public static void remove(Context context) {
