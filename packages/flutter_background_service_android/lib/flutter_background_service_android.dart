@@ -157,16 +157,23 @@ class FlutterBackgroundServiceAndroid extends FlutterBackgroundServicePlatform {
 }
 
 class AndroidServiceInstance extends ServiceInstance {
-  static const MethodChannel _channel = const MethodChannel(
+  static final AndroidServiceInstance _instance = AndroidServiceInstance._internal();
+
+  factory AndroidServiceInstance() {
+    return _instance;
+  }
+
+  AndroidServiceInstance._internal() {
+    _channel.setMethodCallHandler(_handleMethodCall);
+  }
+
+  static const MethodChannel _channel = MethodChannel(
     'id.flutter/background_service_android_bg',
     JSONMethodCodec(),
   );
 
-  AndroidServiceInstance._() {
-    _channel.setMethodCallHandler(_handleMethodCall);
-  }
-
   final _controller = StreamController.broadcast(sync: true);
+
   Future<void> _handleMethodCall(MethodCall call) async {
     switch (call.method) {
       case "onReceiveData":
@@ -224,7 +231,6 @@ class AndroidServiceInstance extends ServiceInstance {
     });
   }
 
-  /// returns true when the current Service instance is in foreground mode.
   Future<bool> isForegroundService() async {
     final result = await _channel.invokeMethod<bool>('isForegroundMode');
     return result ?? false;
