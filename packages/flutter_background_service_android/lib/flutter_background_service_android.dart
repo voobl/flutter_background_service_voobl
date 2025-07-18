@@ -14,7 +14,7 @@ Future<void> entrypoint(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   _isMainIsolate = false;
 
-  final service = AndroidServiceInstance._();
+  final service = AndroidServiceInstance();
   final int handle = int.parse(args.first);
   final callbackHandle = CallbackHandle.fromRawHandle(handle);
   final onStart = PluginUtilities.getCallbackFromHandle(callbackHandle);
